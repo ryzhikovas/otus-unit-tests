@@ -16,17 +16,12 @@ bool waveExpansion(Map& map, Point start, Point destination) {
     for (; destNotReached && !wave.empty(); destNotReached = (map.get(destination) == Cell::Unused)) {
 
         for (Point pos: wave) {
-            for (Point neighbor: map.neighbors(pos)) {
-                if (map.get(neighbor) == Cell::Unused) {
-                    nextWave.insert(neighbor);
-                }
-            }
-            /*map.forEachNeighbor(pos, [&] (Point neighbor) {
+            map.forEachNeighbor(pos, [&] (Point neighbor) {
                 if (map.get(neighbor) == Cell::Unused) {
                     nextWave.insert(neighbor);
                 }
                 return true;
-            });*/
+            });
         }
 
         Cell next = current.next();
@@ -43,31 +38,21 @@ std::vector<Point> backtrace(const Map& map, Point start, Point destination) {
     std::vector<Point> trace = {destination};
 
     Point back = trace.back();
-    Cell currentCell = map.get(back);
 
     while (back != start) {
-        for (Point neighbor: map.neighbors(back)) {
+        Cell currentCell = map.get(back);
+
+        map.forEachNeighbor(back, [&] (Point neighbor) {
             const Cell neighborCell = map.get(neighbor);
             Cell next = neighborCell.next();
 
             if (next == currentCell) {
                 trace.push_back(neighbor);
                 back = neighbor;
-                currentCell = map.get(back);
-            }
-        }
-        /*map.forEachNeighbor(back, [&] (Point neighbor) {
-            const Cell neighborCell = map.get(neighbor);
-            Cell next = neighborCell.next();
-
-            if (next == currentCell) {
-                trace.push_back(neighbor);
-                back = neighbor;
-                currentCell = map.get(back);
                 return false;
             }
             return true;
-        });*/
+        });
     }
     return trace;
 }
@@ -90,9 +75,9 @@ int main() {
                                          "        \n");
     const std::vector<Point> path = shortestPath(map, start, dest);
 
-    /*hack for show path
+    //hack for show path
     for (Point p: path) {
         map.set(p, Cell::Marker::Start);
     }
-    print(map, start, dest);*/
+    print(map, start, dest);
 }

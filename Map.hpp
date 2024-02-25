@@ -10,8 +10,7 @@ public:
     Map(size_t height, size_t width);
     Cell get(Point pos) const;
     void set(Point pos, const Cell& cell);
-    std::array<Point, 8> neighbors(Point pos) const;
-    //void forEachNeighbor(Point pos, std::function<bool (Point)> callback) const;
+    void forEachNeighbor(Point pos, std::function<bool (Point)> callback) const;
     size_t getWidth() const;
     size_t getHeight() const;
 private:

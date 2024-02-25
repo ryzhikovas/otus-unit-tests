@@ -39,10 +39,10 @@ TEST(map_test, neigbors_of_middle_cell) {
     Point p{1, 2};
 
     std::set<Point> points;
-    /*map.forEachNeighbor(p, [&](Point p) {
+    map.forEachNeighbor(p, [&](Point p) {
         points.insert(p);
         return true;
-    });*/
+    });
 
     std::set expected = {Point{0, 1}, {1, 1}, {2, 1}, {0, 2}, {2, 2}, {0, 3}, {1, 3}, {2, 3}};
 
@@ -54,10 +54,10 @@ TEST(map_test, neigbors_of_single_element_map) {
     Point p{0, 0};
 
     std::set<Point> points;
-    /*map.forEachNeighbor(p, [&](Point p) {
+    map.forEachNeighbor(p, [&](Point p) {
         points.insert(p);
         return true;
-    });*/
+    });
 
     EXPECT_TRUE(points.empty());
 }
@@ -68,10 +68,10 @@ TEST(map_test, neigbors_of_bound_cell) {
     {
         // Уберем дублирование forEachNeighbor
         std::set<Point> points;
-        /*map.forEachNeighbor({0, 0}, [&] (Point p) {
+        map.forEachNeighbor({0, 0}, [&] (Point p) {
             points.insert(p);
             return true;
-        });*/
+        });
 
         std::set expected = {Point{0, 1}, {1, 1}, {1, 0}};
         EXPECT_EQ(points, expected);
@@ -79,10 +79,10 @@ TEST(map_test, neigbors_of_bound_cell) {
 
     {
         std::set<Point> points;
-        /*map.forEachNeighbor({2, 2}, [&] (Point p) {
+        map.forEachNeighbor({2, 2}, [&] (Point p) {
             points.insert(p);
             return true;
-        });*/
+        });
 
         std::set expected = {Point{1, 2}, {1, 1}, {2, 1}};
         EXPECT_EQ(points, expected);
